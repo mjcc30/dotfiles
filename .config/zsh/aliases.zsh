@@ -1,0 +1,10 @@
+alias lg='lazygit'
+alias czsh="nv ~/.zshrc"
+alias rzsh='source ~/.zshrc'
+alias pi='sudo pacman -S'
+alias pr='sudo pacman -R'
+alias u='sudo pacman -Syyu'
+alias yi='yay -S'
+alias yr='yay -R'
+alias randbg="feh --bg-fill --randomize ~/Images/wallpapers/*"
+alias n=nvim
