@@ -1,0 +1,159 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "/home/wombat/Pictures/Linux/Linux Images/Debian_Logo_Blue_BottomText.png",
+        "type": "auto",
+        "height": 20,
+        "width": 43,
+        "padding": {
+            "top": 2,
+            "left": 0
+        }
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌──────────────────────── Debian SID ────────────────────────┐"
+        },
+        {
+            "type": "os",
+            "key": " OS",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "kernel",
+            "key": "│ ├ KERNEL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "packages",
+            "key": "│ ├󰏖 PACKAGES",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminal",
+            "key": "│ ├ TERMINAL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminalfont",
+            "key": "│ ├󰛖 TERMINAL FONT",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "shell",
+            "key": "│ ├ SHELL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "command",
+            "key": "└ └󱦟 Age",
+            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌────────────────────── PC Descriptions  ────────────────────┐"
+        },
+        {
+            "type": "host",
+            "key": "  PC",
+            "keyColor": "green"
+        },
+        {
+            "type": "cpu",
+            "key": "│ ├ CPU",
+            "showPeCoreCount": true,
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "│ ├󰍛 GPU",
+            "keyColor": "green"
+        },
+        {
+            "type": "display",
+            "key": "│ ├󰹑 DISPLAY",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": "│ ├󰍛 MEMORY",
+            "keyColor": "green"
+        },
+        {
+            "type": "swap",
+            "key": "│ ├󰓡 SWAP",
+            "keyColor": "green"
+        },
+        {
+            "type": "disk",
+            "key": "└ └ DISK",
+            "keyColor": "green"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌─────────────────── Desktop Environment ────────────────────┐"
+        },
+        {
+            "type": "wm",
+            "key": " WINDOW MANAGER",
+            "keyColor": "blue"
+        },
+        {
+            "type": "de",
+            "key": " DE",
+            "keyColor": "blue"
+        },
+        {
+            "type": "lm",
+            "key": "│ ├ DISPLAY MANAGER",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wmtheme",
+            "key": "│ ├ THEME",
+            "keyColor": "blue"
+        },
+        {
+            "type": "icons",
+            "key": "└ └󰉼 ICONS",
+            "keyColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌─────────────────────── Age / Uptime ───────────────────────┐"
+        },
+        {
+            "type": "sound",
+            "key": " SND",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "player",
+            "key": "│ ├󰥠",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "media",
+            "key": "└ └󰝚",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────────────┘"
+        }
+    ]
+}
