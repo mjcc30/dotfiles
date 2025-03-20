@@ -1,0 +1,48 @@
+local options = {
+  ensure_installed = {
+    "bash",
+    "c",
+    "cmake",
+    "cpp",
+    "css",
+    "dockerfile",
+    "elixir",
+    "erlang",
+    "fish",
+    "go",
+    "gomod",
+    "gosum",
+    "gotmpl",
+    "gowork",
+    "html",
+    "java",
+    "javascript",
+    "jinja",
+    "json",
+    "lua",
+    "luadoc",
+    "make",
+    "markdown",
+    "php",
+    "printf",
+    "python",
+    "rust",
+    "terraform",
+    "toml",
+    "typescript",
+    "tsx",
+    "vim",
+    "vimdoc",
+    "yaml",
+    "zig",
+  },
+
+  highlight = {
+    enable = true,
+    use_languagetree = true,
+  },
+
+  indent = { enable = true },
+}
+
+require("nvim-treesitter.configs").setup(options)
