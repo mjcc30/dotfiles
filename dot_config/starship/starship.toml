@@ -1,0 +1,83 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+# Add continuation prompt visualisation
+continuation_prompt = "[▸▹ ](dimmed white)"
+
+# Add modules to the right
+right_format = """
+$battery
+$time
+"""
+
+format = """($git_metrics\n)$cmd_duration\
+$git_branch\
+$sudo\
+$gcloud\
+$kubernetes
+$character
+"""
+
+[fill]
+symbol = ' '
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[gcloud]
+format = '\[[$project]($style)\]'
+[gcloud.region_aliases]
+europe-west1 = 'ew1'
+europe-west9 = 'ew9'
+[gcloud.project_aliases]
+p2020-infsi-026-dev = "avec-dev"
+
+[git_metrics]
+format = '([▴$added]($added_style))([▿$deleted]($deleted_style))'
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
+
+[git_branch]
+format = '\[[$symbol$branch]($style)\]'
+
+[kubernetes]
+disabled = false
+format = '\[[$context(/$namespace)]($style)\]'
+# detect_files = ['k8s']
+[[kubernetes.contexts]]
+context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
+context_alias = "$cluster"
+
+[time]
+disabled = false
+format = "[ $time]($style)"
+time_format = "%R"
+utc_time_offset = "local"
+style = "italic dimmed white"
+
+# Display battery if 20%
+[battery]
+format = "[$symbol]($style)"
+
+[[battery.display]]
+threshold = 20
+style = "italic bold red"
+
+[[battery.display]]
+threshold = 60
+style = "italic dimmed bright-purple"
+
+[sudo]
+format = "[$symbol]($style)"
+style = "bold italic bright-purple"
+symbol = "⋈┈"
+disabled = false

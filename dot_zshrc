@@ -36,6 +36,8 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Load completions
+fpath=(/usr/share/zsh/site-functions $fpath)
+fpath=($HOME/.local/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
 # Completion styling
