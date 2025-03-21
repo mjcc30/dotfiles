@@ -1,0 +1,145 @@
+#compdef pikman
+
+local curcontext="$curcontext" state line
+typeset -A opt_args
+
+_pikman_commands() {
+  local -a commands
+
+  commands=(
+    '--arch:[Install Arch packages (including from the AUR)]'
+    '--fedora:[Install Fedora packages]'
+    '--alpine:[Install Alpine packages]'
+    '--flatpak:[Install Flatpak packages]'
+    '--name:[Name of the managed container]:container name:_files'
+    '--help:[Show help]'
+    '--version:[Show version]'
+    'autoremove:Remove all unused packages'
+    'clean:Clean the package manager cache'
+    'install:Install the specified package(s)'
+    'list:List installed packages'
+    'purge:Fully purge a package'
+    'remove:Remove an installed package'
+    'search:Search for a package'
+    'show:Show details for a package'
+    'update:Update the list of available packages'
+    'upgrades:List the available upgrades'
+    'upgrade:Upgrade the system by installing/upgrading available packages'
+  )
+  _describe -t commands 'pikman command' commands
+}
+
+_alpine_commands() {
+  local -a commands
+  commands=(
+    'autoremove:Remove all unused packages'
+    'clean:Clean the package manager cache'
+    'enter:Enter the container instance for select package manager'
+    'export:Export/Recreate a program’s desktop entry from the container'
+    'init:Initialize a managed container'
+    'install:Install the specified package(s)'
+    'list:List installed packages'
+    'purge:Fully purge a package'
+    'run:Run a command inside a managed container'
+    'remove:Remove an installed package'
+    'search:Search for a package'
+    'show:Show details for a package'
+    'unexport:Unexport/Remove a program’s desktop entry'
+    'update:Update the list of available packages'
+    'upgrade:Upgrade the system by installing/upgrading available packages'
+    'help:Shows a list of commands or help for one command'
+  )
+  _describe -t commands 'alpine command' commands
+}
+
+_arch_commands() {
+  local -a commands
+  commands=(
+    'autoremove:Remove all unused packages'
+    'clean:Clean the package manager cache'
+    'enter:Enter the container instance for select package manager'
+    'export:Export/Recreate a program’s desktop entry from the container'
+    'init:Initialize a managed container'
+    'install:Install the specified package(s)'
+    'list:List installed packages'
+    'purge:Fully purge a package'
+    'run:Run a command inside a managed container'
+    'remove:Remove an installed package'
+    'search:Search for a package'
+    'show:Show details for a package'
+    'unexport:Unexport/Remove a program’s desktop entry'
+    'update:Update the list of available packages'
+    'upgrade:Upgrade the system by installing/upgrading available packages'
+    'help:Shows a list of commands or help for one command'
+  )
+  _describe -t commands 'arch command' commands
+}
+
+_fedora_commands() {
+  local -a commands
+  commands=(
+    'autoremove:Remove all unused packages'
+    'clean:Clean the package manager cache'
+    'enter:Enter the container instance for select package manager'
+    'export:Export/Recreate a program’s desktop entry from the container'
+    'init:Initialize a managed container'
+    'install:Install the specified package(s)'
+    'list:List installed packages'
+    'purge:Fully purge a package'
+    'run:Run a command inside a managed container'
+    'remove:Remove an installed package'
+    'search:Search for a package'
+    'show:Show details for a package'
+    'unexport:Unexport/Remove a program’s desktop entry'
+    'update:Update the list of available packages'
+    'upgrade:Upgrade the system by installing/upgrading available packages'
+    'help:Shows a list of commands or help for one command'
+  )
+  _describe -t commands 'fedora command' commands
+}
+
+_flatpak_commands() {
+  local -a commands
+  commands=(
+    'enter:Enter the container instance for select package manager'
+    'install:Install the specified package(s)'
+    'list:List installed packages'
+    'run:Run a command inside a managed container'
+    'remove:Remove an installed package'
+    'search:Search for a package'
+    'show:Show details for a package'
+    'update:Update the list of available packages'
+  )
+  _describe -t commands 'flatpak command' commands
+}
+
+_arguments -C \
+  '1: :_pikman_commands' \
+  '2:: :->args'
+
+case $state in
+  args)
+    case $line[1] in
+      --alpine|--apk)
+        _alpine_commands
+        ;;
+      --arch|--aur)
+        _arch_commands
+        ;;
+      --fedora|--dnf)
+        _fedora_commands
+        ;;
+      --flatpak|--fl)
+        _flatpak_commands
+        ;;
+      --name)
+        # No additional completions needed for help
+        ;;
+      --help|-h)
+        # No additional completions needed for help
+        ;;
+      --version|-v)
+        # No additional completions needed for version
+        ;;
+    esac
+esac
