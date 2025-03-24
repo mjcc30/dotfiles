@@ -1,4 +1,6 @@
 [tools]
+bitwarden = "latest"
+ansible = "latest"
 chezmoi = "latest"
 direnv = "latest"
 gcloud = "latest"
