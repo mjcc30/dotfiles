@@ -9,6 +9,7 @@ run_mise() {
 brew install mise
 {{ end }}
 
+
 {{ if eq .chezmoi.os "linux" }}
 
 {{ if eq .osid "linux-pika" }}
@@ -35,5 +36,6 @@ exit 1
 eval "$(/home/mjcc/.local/bin/mise activate bash)"
 echo "eval \"\$(/home/mjcc/.local/bin/mise activate bash)\"" >> ~/.bashrc
 source ~/.bashrc
+
 run_mise
 echo "Mise installation complete."
