@@ -4,11 +4,19 @@
   become: true
   connection: local
   gather_facts: true
+  # vars_prompt:
+  #   - name: atuin_user
+  #     prompt: What is your atuin username?
+  #     private: true
+  #
+  #   - name: atuin_pass
+  #     prompt: What is your atuin password?
+  #     private: true
 
   tasks:
     - name: Get my user
       ansible.builtin.set_fact:
-        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+        user: "{{ lookup('env', 'USER') or ansible_user }}"
 
     - name: Safe upgrade of all installed packages
       apt:
@@ -20,7 +28,13 @@
       apt:
         update_cache: yes
         name: # list packages to install
+          - jq
+          - git
+          - wget
+          - gnupg
+          - gnupg2
           - zsh
+          - fzf
         state: present
         install_recommends: yes
 
@@ -31,7 +45,7 @@
 
     - name: Change shell to zsh
       ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
+        name: "{{ user }}"
         shell: /usr/bin/zsh
 
     - name: Install prerequisites for Docker repository
@@ -74,9 +88,59 @@
 
     - name: Add user to docker group
       ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
+        name: "{{ user }}"
         groups: docker
         append: true
+
+    # Install Nerd font
+    - name: Install Jetbrains Nerd Font
+      block:
+        - name: Create Directory
+          ansible.builtin.file:
+            path: "/home/{{ user }}/.fonts/JetBrainsMonoNerd"
+            state: directory
+            mode: "0755"
+            owner: "{{ user }}"
+            group: "{{ user }}"
+        - name: Download
+          ansible.builtin.unarchive:
+            src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
+            dest: "/home/{{ user }}/.fonts/JetBrainsMonoNerd"
+            remote_src: true
+            owner: "{{ user }}"
+            group: "{{ user }}"
+
+    - name: Font cache update
+      action: command fc-cache -fv
+
+    - name: Check if Starship is installed
+      ansible.builtin.stat:
+        path: /home/{{ user }}/.config/starship.toml
+      register: starship
+
+    - name: Install starship
+      when: not starship.stat.exists
+      ansible.builtin.shell: "curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir /usr/local/bin"
+      args:
+        executable: /bin/bash
+
+    - name: Download Atuin setup script
+      get_url:
+        url: https://setup.atuin.sh
+        dest: /tmp/setup_atuin.sh
+        mode: '0755'
+
+    - name: Run the Atuin setup script
+      command: /tmp/setup_atuin.sh
+      register: atuin_install
+      become: true
+      become_user: "{{ user }}"
+
+    # - name: login to atuin
+    #   command: /home/{{ user }}/.atuin/bin/atuin login -u "{{ atuin_user }}" -p "{{ atuin_pass }}" -k "{{ atuin_key }}"
+    #   when: atuin_install.rc == 0
+    #   become: true
+    #   become_user: "{{ user }}"
 
     - name: Check if reboot is required
       stat:
