@@ -11,7 +11,7 @@ brew install mise
 
 {{ if eq .chezmoi.os "linux" }}
 
-{{ if eq .osid "linux-debian" }}
+{{ if eq .osid "linux-pika" }}
 echo "Install mise on Linux"
 sudo apt update -y && sudo apt install -y gpg sudo wget curl
 sudo install -dm 755 /etc/apt/keyrings
