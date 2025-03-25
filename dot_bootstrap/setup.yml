@@ -36,6 +36,8 @@
           - zsh
           - fzf
           - unzip
+          - fastfetch
+          - distrobox
         state: present
         install_recommends: yes
 
