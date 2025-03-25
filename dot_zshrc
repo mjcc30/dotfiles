@@ -1,6 +1,15 @@
 #  Export paths 
 # In ~/.zenv
 
+#  Plugins 
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 # Load starship theme
 # line 1: `starship` binary as command, from github release
 # line 2: starship setup at clone(create init.zsh, completion)
@@ -14,26 +23,16 @@ zinit light starship/starship
 # Add atuin 
 . "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
-# Add fzf
-eval "$(fzf --zsh)"
-# Add zoxide
-eval "$(zoxide init --cmd cd zsh)"
-# Add starship
-eval "$(starship init zsh)"
 # Add mise
 eval "$(${HOME}/.local/bin/mise activate zsh)"
+# Add fzf
+eval "$(fzf --zsh)"
+# Add starship
+eval "$(starship init zsh)"
 # Add direnv
 eval "$(direnv hook zsh)"
-
-#  Plugins 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
+# Add zoxide
+eval "$(zoxide init --cmd cd zsh)"
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
