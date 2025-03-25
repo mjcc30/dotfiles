@@ -1,0 +1,14 @@
+#!/bin/bash
+
+bw lock --check > /dev/null 2>&1
+bw_locked=$?
+
+if test $bw_locked -eq 1
+then
+  printf 'your Bitwarden vault is locked.\n'
+else
+  printf 'Looks like your Bitwarden vault is unlocked.\n'
+  exit 1
+fi
+
+echo 'Finished Bitwarden setup.'
