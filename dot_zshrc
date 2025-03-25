@@ -1,6 +1,15 @@
 #  Export paths 
 # In ~/.zenv
 
+# Load starship theme
+# line 1: `starship` binary as command, from github release
+# line 2: starship setup at clone(create init.zsh, completion)
+# line 3: pull behavior same as clone, source init.zsh
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
 #  Programs 
 # Add atuin 
 . "$HOME/.atuin/bin/env"
@@ -34,6 +43,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light atuinsh/atuin
 
 # Load completions
 fpath=(/usr/share/zsh/site-functions $fpath)
