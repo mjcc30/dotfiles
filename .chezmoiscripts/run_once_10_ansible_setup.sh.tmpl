@@ -1,5 +1,6 @@
 #!/bin/bash
 
 if command -v ansible-playbook &> /dev/null; then
+    ansible-galaxy collection install community.general
     ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_bootstrap/setup.yml" | quote }} --ask-become-pass
 fi

@@ -35,6 +35,7 @@
           - gnupg2
           - zsh
           - fzf
+          - unzip
         state: present
         install_recommends: yes
 
@@ -141,6 +142,17 @@
     #   when: atuin_install.rc == 0
     #   become: true
     #   become_user: "{{ user }}"
+
+    - name: Install multiple packages from flatpak
+      community.general.flatpak:
+        name:
+          - org.gimp.GIMP
+          - org.inkscape.Inkscape
+          - org.mozilla.firefox
+          - app.zen_browser.zen
+          - org.dupot.easyflatpak
+          - org.fedoraproject.MediaWriter
+        state: latest
 
     - name: Check if reboot is required
       stat:
