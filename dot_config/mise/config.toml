@@ -1,6 +1,5 @@
 [tools]
 bitwarden = "latest"
-ansible-core = "latest"
 chezmoi = "latest"
 direnv = "latest"
 gcloud = "latest"
@@ -13,5 +12,6 @@ neovim = "latest"
 node = "lts"
 ruff = "latest"
 uv = "latest"
+vale = "latest"
 zellij = "latest"
 zoxide = "latest"

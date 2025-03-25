@@ -1,46 +1,65 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
+local lspconfig = require("lspconfig")
 lspconfig.servers = {
-  "lua_ls",
-  "html",
-  "cssls",
-  "clangd",
-  "bashls",
-  "ts_ls",
-  "pyright",
-  "ruff",
-  "gopls",
-  "rust_analyzer",
-  "tailwindcss",
-  "eslint",
-  "zls",
+	"lua_ls",
+	"html",
+	"cssls",
+	"clangd",
+	"bashls",
+	"ts_ls",
+	"pyright",
+	"ruff",
+	"gopls",
+	"rust_analyzer",
+	"tailwindcss",
+	"eslint",
+	"zls",
+	"ansiblels",
 }
-local nvlsp = require "nvchad.configs.lspconfig"
+local nvlsp = require("nvchad.configs.lspconfig")
 
 -- lsps with default config
 for _, lsp in ipairs(lspconfig.servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
+	lspconfig[lsp].setup({
+		on_attach = nvlsp.on_attach,
+		on_init = nvlsp.on_init,
+		capabilities = nvlsp.capabilities,
+	})
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then
-      return
-    end
-    if client.name == "ruff" then
-      -- Disable hover in favor of Pyright
-      client.server_capabilities.hoverProvider = false
-    end
-  end,
-  desc = "LSP: Disable hover capability from Ruff",
+	group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client == nil then
+			return
+		end
+		if client.name == "ruff" then
+			-- Disable hover in favor of Pyright
+			client.server_capabilities.hoverProvider = false
+		end
+	end,
+	desc = "LSP: Disable hover capability from Ruff",
+})
+
+lspconfig.ansiblels.setup({
+	cmd = { "ansible-language-server", "--stdio" },
+	settings = {
+		ansible = {
+			python = { interpreterPath = "python" },
+			ansible = { path = "ansible" },
+			executionEnvironment = { enabled = false },
+			validation = {
+				enabled = false,
+				lint = { enabled = true, path = "ansible-lint" },
+			},
+		},
+	},
+	filetypes = { "yaml", "yml", "ansible" },
+	root_dir = lspconfig.util.root_pattern("roles", "playbooks"),
+	single_file_support = false,
 })
 
 -- list of all servers configured.
