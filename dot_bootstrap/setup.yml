@@ -39,6 +39,7 @@
           - fastfetch
           - distrobox
           - discord
+          - flameshot
         state: present
         install_recommends: yes
 
