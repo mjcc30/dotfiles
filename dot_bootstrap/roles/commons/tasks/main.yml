@@ -1,0 +1,35 @@
+---
+- name: Get my user
+  ansible.builtin.set_fact:
+    user: "{{ lookup('env', 'USER') or ansible_user }}"
+
+- name: Safe upgrade of all installed packages
+  apt:
+    update_cache: yes
+    upgrade: safe
+    cache_valid_time: 86400
+
+- name: Install various apt packages
+  apt:
+    update_cache: yes
+    name: # list packages to install
+      - jq
+      - git
+      - wget
+      - gnupg
+      - gnupg2
+      - zsh
+      - fzf
+      - unzip
+      - fastfetch
+      - distrobox
+      - discord
+      - flameshot
+      - python3.12-venv
+    state: present
+    install_recommends: yes
+
+- name: Clean cache & remove unnecessary dependencies
+  apt:
+    autoclean: yes
+    autoremove: yes

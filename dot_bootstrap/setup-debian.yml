@@ -1,0 +1,68 @@
+---
+- name: Debian setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  # vars_prompt:
+  #   - name: atuin_user
+  #     prompt: What is your atuin username?
+  #     private: true
+  #
+  #   - name: atuin_pass
+  #     prompt: What is your atuin password?
+  #     private: true
+  roles:
+    - { role: commons, become: true }
+    - { role: docker, become: true }
+
+  tasks:
+    - name: Check if Starship is installed
+      ansible.builtin.stat:
+        path: /home/{{ user }}/.config/starship.toml
+      register: starship
+
+    - name: Install starship
+      when: not starship.stat.exists
+      ansible.builtin.shell: "curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir /usr/local/bin"
+      args:
+        executable: /bin/bash
+
+    - name: Download Atuin setup script
+      get_url:
+        url: https://setup.atuin.sh
+        dest: /tmp/setup_atuin.sh
+        mode: '0755'
+
+    - name: Run the Atuin setup script
+      command: /tmp/setup_atuin.sh
+      register: atuin_install
+      become: true
+      become_user: "{{ user }}"
+
+    # - name: login to atuin
+    #   command: /home/{{ user }}/.atuin/bin/atuin login -u "{{ atuin_user }}" -p "{{ atuin_pass }}" -k "{{ atuin_key }}"
+    #   when: atuin_install.rc == 0
+    #   become: true
+    #   become_user: "{{ user }}"
+
+    - name: Install multiple packages from flatpak
+      community.general.flatpak:
+        name:
+          - org.gimp.GIMP
+          - org.inkscape.Inkscape
+          - org.mozilla.firefox
+          - app.zen_browser.zen
+          - org.dupot.easyflatpak
+          - org.fedoraproject.MediaWriter
+        state: latest
+
+    - name: Check if reboot is required
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required_file
+
+    - name: Reboot if required
+      reboot:
+        msg: Rebooting due to a kernel update
+      when: reboot_required_file.stat.exists

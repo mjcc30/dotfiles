@@ -1,0 +1,21 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "linux" }}
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+apt install -y pika-codecs-meta
+apt install vulkan-amdgpu-pro vulkan-amdgpu-pro:i386 -y -o Dpkg::Options::=--force-confnew
+apt install pika-rocm-meta -y -o Dpkg::Options::=--force-confnew
+apt install mesa-stable -y -o Dpkg::Options::=--force-confnew
+apt install amf-amdgpu-pro vulkan-amdgpu-pro vulkan-amdgpu-pro:i386 -y -o Dpkg::Options::=--force-confnew
+apt install amdvlk amdvlk:i386 -y -o Dpkg::Options::=--force-confnew
+apt install pika-gameutils-meta -y -o Dpkg::Options::=--force-confnew
+apt install pika-gameutils-meta-extra -y -o Dpkg::Options::=--force-confnew
+apt install fabiscafe-devices -y -o Dpkg::Options::=--force-confnew
+apt install ttf-mscorefonts-installer -y -o Dpkg::Options::=--force-confnew
+apt install kdenlive -y -o Dpkg::Options::=--force-confnew
+apt install krita kwayland-data -y -o Dpkg::Options::=--force-confnew
+apt install libreoffice -y -o Dpkg::Options::=--force-confnew
+apt install blender -y -o Dpkg::Options::=--force-confnew
+apt install obs-studio -y -o Dpkg::Options::=--force-confnew
+apt autoremove -y -o Dpkg::Options::=--force-confnew
+{{ end }}

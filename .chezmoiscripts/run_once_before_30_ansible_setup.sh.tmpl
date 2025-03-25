@@ -1,0 +1,26 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "linux" }}
+###################
+# Install ansible #
+if ! hash ansible >/dev/null 2>&1; then
+    echo "Installing Ansible..."
+    sudo apt-get update
+    # sudo apt-get install software-properties-common ansible git python-apt -y
+    sudo apt-get install ansible-core -y
+else
+    echo "Ansible already installed"
+fi
+
+#####################################
+# Display real installation process #
+echo ""
+echo "Customize the playbook ansible-desktop.yml to suit your needs, then run ansible with :"
+echo "  ansible-playbook .bootstrap/setup-debian.yml --ask-become-pass"
+echo ""
+
+ansible-galaxy collection install community.general
+
+ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_bootstrap/setup-debian.yml" | quote }} --ask-become-pass
+
+{{ end }}
