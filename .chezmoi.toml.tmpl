@@ -1,7 +1,14 @@
 {{- $osid := .chezmoi.os -}}
+{{- $use_secrets := true -}}
+
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
+{{- if (env "SECRETS_OFF") -}}
+{{-   $use_secrets = false -}}
+{{- end -}}
+
 [data]
     osid = {{ $osid | quote }}
+    use_secrets = {{ $use_secrets }}
