@@ -38,6 +38,7 @@
           - unzip
           - fastfetch
           - distrobox
+          - discord
         state: present
         install_recommends: yes
 
