@@ -48,9 +48,10 @@ fpath=(/usr/share/zsh/site-functions $fpath)
 fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
-# gcloud completion
-source .local/share/mise/installs/gcloud/latest/path.zsh.inc
-source .local/share/mise/installs/gcloud/latest/completion.zsh.inc
+# gcloud completions
+googlepath=($HOME/.local/share/mise/installs/gcloud/latest) # need gcloud to be installed from mise
+source $googlepath/path.zsh.inc
+source $googlepath/completion.zsh.inc
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
