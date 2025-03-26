@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if command -v mise &> /dev/null; then
+  mise use -g vale
+  source .bashrc
+fi
+
+vale sync
+
+echo 'Finished vale setup.'

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if command -v mise &> /dev/null; then
+  mise use -g neovim
+  source .bashrc
+fi
+
+nvim --headless "+Lazy! sync" +qa
+
+echo 'Finished neovim setup.'

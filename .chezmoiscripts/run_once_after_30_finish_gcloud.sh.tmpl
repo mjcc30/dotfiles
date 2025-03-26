@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if command -v mise &> /dev/null; then
+  mise use -g gcloud
+  source .bashrc
+fi
+
+gcloud components install kubectl
+gcloud components install beta
+
+echo 'Finished gcloud setup.'

@@ -4,6 +4,10 @@
 # linux: install bitwarden and related auth tools
 {{- if eq .osid "linux-pika" -}}
 sudo apt install jq git wget gnupg gnupg2 -y
+if command -v mise &> /dev/null; then
+  mise use -g bitwarden
+  source .bashrc
+fi
 {{ end -}}
 
 # darwin: install bitwarden and related auth tools
@@ -26,12 +30,8 @@ if test $logged_in -eq 0
 then
   printf 'Bitwarden is logged in.\n'
 else
-  printf '\nYou need to login and unlock your BitWarden vault and re-run chezmoi apply.\n'
-  printf 'You can login and unlock your vault by running the command:\n'
-  printf '\n    export BW_SESSION=$(bw login --raw "$bw_email")    \n\n'
-  printf 'When you are done with chezmoi, LOCK YOUR BITWARDEN with the command:\n'
-  printf '\n    bw lock    \n\n'
-  exit 1
+  printf '\nYou need to login and unlock your BitWarden vault.\n'
+  export BW_SESSION=$(bw login --raw "$bw_email")
 fi
 
 printf 'Checking if Bitwarden vault is unlocked...\n'
@@ -43,12 +43,8 @@ if test $bw_unlocked -eq 0
 then
   printf 'Looks like your Bitwarden vault is unlocked.\n'
 else
-  printf '\nYou need to unlock your BitWarden vault and re-run chezmoi apply.\n'
-  printf 'You can unlock your vault by running the command:\n's
-  printf '\n    export BW_SESSION=$(bw unlock --raw)    \n\n'
-  printf 'When you are done with chezmoi, LOCK YOUR BITWARDEN with the command:\n'
-  printf '\n    bw lock    \n\n'
-  exit 1
+  printf '\nYou need to unlock your BitWarden vault.\n'
+  export BW_SESSION=$(bw unlock --raw)
 fi
 
 echo 'Finished Bitwarden setup.'
