@@ -45,8 +45,12 @@ zinit light atuinsh/atuin
 
 # Load completions
 fpath=(/usr/share/zsh/site-functions $fpath)
-fpath=($HOME/.local/zsh/completions $fpath)
+fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
+
+# gcloud completion
+source .local/share/mise/installs/gcloud/latest/path.zsh.inc
+source .local/share/mise/installs/gcloud/latest/completion.zsh.inc
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'

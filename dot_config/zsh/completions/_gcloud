@@ -1,0 +1,2 @@
+source .local/share/mise/installs/gcloud/latest/path.zsh.inc
+source .local/share/mise/installs/gcloud/latest/completion.zsh.inc
