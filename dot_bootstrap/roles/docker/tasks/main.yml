@@ -42,3 +42,8 @@
     name: "{{ user }}"
     groups: docker
     append: true
+
+- name: Check if Docker is started
+  ansible.builtin.service:
+    name: docker
+    state: started
