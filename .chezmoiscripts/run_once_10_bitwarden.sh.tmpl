@@ -1,14 +1,14 @@
+{{- if .use_secrets -}}
 #!/bin/bash
-#
-{{ if .use_secrets }}
+
 # linux: install bitwarden and related auth tools
-{{- if eq .osid "linux-pika" -}}
+{{ if eq .chezmoi.os "linux" }}
 sudo apt install jq git wget gnupg gnupg2 -y
 if command -v mise &> /dev/null; then
   mise use -g bitwarden
   source .bashrc
 fi
-{{ end -}}
+{{ end }}
 
 # darwin: install bitwarden and related auth tools
 {{- if eq .osid "darwin" -}}
@@ -49,4 +49,4 @@ fi
 
 echo 'Finished Bitwarden setup.'
 
-{{ end }}
+{{- end -}}

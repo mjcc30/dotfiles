@@ -1,3 +1,4 @@
+{{- if .use_secrets -}}
 #!/bin/bash
 
 bw lock --check > /dev/null 2>&1
@@ -13,3 +14,5 @@ else
 fi
 
 echo 'Finished Bitwarden setup.'
+
+{{- end -}}
