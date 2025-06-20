@@ -13,6 +13,8 @@ else
   exit 1
 fi
 
+bash {{ joinPath .chezmoi.sourceDir "utils/git_remote_ssh.sh" | quote }}
+
 echo 'Finished Bitwarden setup.'
 
 {{- end -}}

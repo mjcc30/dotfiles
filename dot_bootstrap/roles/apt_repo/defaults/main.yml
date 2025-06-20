@@ -1,0 +1,2 @@
+ansible_distribution: "debian"
+ansible_distribution_release: "trixie"

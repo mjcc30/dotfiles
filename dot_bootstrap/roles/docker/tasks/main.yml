@@ -1,25 +1,4 @@
 ---
-- name: Install prerequisites for Docker repository
-  apt:
-    update_cache: yes
-    name:
-      - ca-certificates
-      - curl
-      - gnupg2
-      - software-properties-common
-    state: present
-
-- name: Add Docker GPG key
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-
-- name: add docker apt repo
-  become: yes
-  apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable"
-    state: present
-    update_cache: yes
-
 - name: Install Docker
   apt:
     update_cache: yes

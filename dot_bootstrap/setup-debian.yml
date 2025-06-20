@@ -14,7 +14,9 @@
   #     private: true
   roles:
     - { role: commons, become: true }
+    - { role: apt_repo, become: true }
     - { role: docker, become: true }
+    - { role: fonts  }
 
   tasks:
     - name: Check if Starship is installed

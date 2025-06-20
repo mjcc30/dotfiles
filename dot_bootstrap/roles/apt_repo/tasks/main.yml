@@ -1,0 +1,95 @@
+---
+- name: Add Docker APT repository
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: [deb]
+    uris: "https://download.docker.com/linux/debian"
+    signed_by: "https://download.docker.com/linux/debian/gpg"
+    suites: [trixie]
+    components: [stable]
+    architectures: amd64
+    state: present
+
+# - name: Add VSCode APT repository
+#   ansible.builtin.deb822_repository:
+#     name: vscode
+#     types: [deb]
+#     uris: "https://packages.microsoft.com/repos/code"
+#     signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
+#     suites: [stable]
+#     components: [main]
+#     architectures: amd64
+#     state: absent
+#
+# - name: Add google APT repository
+#   ansible.builtin.deb822_repository:
+#     name: google
+#     types: [deb]
+#     uris:
+#       - "http://dl.google.com/linux/chrome/deb"
+#       - "http://dl.google.com/linux/earth/deb"
+#     signed_by: "https://dl.google.com/linux/linux_signing_key.pub"
+#     suites: [stable]
+#     components: [main]
+#     state: absent
+#
+# - name: Add Kubernetes APT repository
+#   ansible.builtin.deb822_repository:
+#     name: kubernetes
+#     types: [deb]
+#     uris: "https://apt.kubernetes.io"
+#     signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+#     suites: [kubernetes-xenial]
+#     components: [main]
+#     state: absent
+#
+# - name: Add google-cloud-cli APT repository
+#   ansible.builtin.deb822_repository:
+#     name: google-cloud-cli
+#     types: [deb]
+#     uris: "https://packages.cloud.google.com/apt"
+#     signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+#     suites: [cloud-sdk]
+#     components: [main]
+#     state: absent
+#
+# - name: Add Microsoft prod APT repository (Debian)
+#   when: ansible_distribution == 'Debian'
+#   ansible.builtin.deb822_repository:
+#     name: packages-microsoft-com-prod
+#     types: [deb]
+#     uris: "https://packages.microsoft.com/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version }}/prod"
+#     signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
+#     suites: ["{{ ansible_distribution_release|lower }}"]
+#     components: [main]
+#     state: absent
+#
+# - name: Add Tailscale stable APT repository
+#   ansible.builtin.deb822_repository:
+#     name: tailscale-stable
+#     types: [deb]
+#     uris: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}"
+#     signed_by: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}.asc"
+#     suites: ["{{ ansible_distribution_release|lower }}"]
+#     components: [main]
+#     state: absent
+#
+# - name: Add Hashicorp Stable APT repository
+#   ansible.builtin.deb822_repository:
+#     name: hashicorp
+#     types: [deb]
+#     uris: "https://apt.releases.hashicorp.com"
+#     signed_by: "https://apt.releases.hashicorp.com/gpg"
+#     suites: ["{{ ansible_distribution_release|lower }}"]
+#     components: [main]
+#     state: absent
+#
+# - name: Add Mozilla APT repository
+#   ansible.builtin.deb822_repository:
+#     name: mozilla
+#     types: [deb]
+#     uris: https://packages.mozilla.org/apt
+#     signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg
+#     suites: [mozilla]
+#     components: [main]
+#     state: absent
